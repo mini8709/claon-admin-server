@@ -45,6 +45,10 @@ class LocalConfig(Config):
 
     BUCKET = config.get("S3", "BUCKET", fallback="")
 
+    # CELERY
+    CELERY_ENABLE: bool = True
+    CELERY_BROKER = config.get("CELERY", "CELERY_BROKER", fallback="")
+
 
 @dataclass
 class ProdConfig(Config):
@@ -77,12 +81,17 @@ class ProdConfig(Config):
 
     BUCKET = config.get("S3", "BUCKET", fallback="")
 
+    # CELERY
+    CELERY_ENABLE: bool = True
+    CELERY_BROKER = config.get("CELERY", "CELERY_BROKER", fallback="")
+
 
 @dataclass
 class TestConfig(Config):
     DB_URL: str = "sqlite+aiosqlite:///test.db"
     REDIS_ENABLE: bool = False
     AWS_ENABLE: bool = False
+    CELERY_ENABLE: bool = False
 
 
 def conf():
